@@ -124,7 +124,7 @@ add_action( 'widgets_init', 'square_one_widgets_init' );
 
 function square_one_scripts() {
 
-    wp_enqueue_style( 'square-one-style', get_template_directory_uri() . '/assets/css/app.css', false, null );
+    wp_enqueue_style( 'square-one-style', get_template_directory_uri() . '/dist/styles/main.min.css', false, null );
 
     wp_enqueue_style( 'square-one-fontawesome', get_template_directory_uri() . '/assets/vendor/fontawesome/css/font-awesome.min.css', false, null );
 

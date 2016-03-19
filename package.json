@@ -7,11 +7,13 @@
   },
   "devDependencies": {
     "autoprefixer": "^6.3.3",
+    "browser-sync": "^2.8.2",
     "cssnano": "^3.5.2",
     "gulp": "^3.9.1",
     "gulp-postcss": "^6.1.0",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.0.1",
-    "stream-combiner2": "^1.1.1"
+    "stream-combiner2": "^1.1.1",
+    "wiredep": "^2.2.2"
   }
 }
