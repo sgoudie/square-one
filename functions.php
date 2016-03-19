@@ -132,8 +132,6 @@ function square_one_scripts() {
 
     wp_enqueue_script( 'square-one-jquery-fastclick', get_template_directory_uri() . '/assets/vendor/fastclick/lib/fastclick.js', array('square-one-jquery'), '20120206', true );
 
-    wp_enqueue_script( 'square-one-jquery-validate', get_template_directory_uri() . '/assets/vendor/jquery-validation/dist/jquery.validate.js', array('square-one-jquery'), '20120206', true );
-
     wp_enqueue_script( 'square-one-bootstrap_js', get_template_directory_uri() . '/assets/vendor/bootstrap/dist/js/bootstrap.js', array('square-one-jquery'), null, true );
 
     wp_enqueue_script( 'square-one-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20120206', true );
