@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var rename = require('gulp-rename');
+var clean = require('gulp-clean');
 var postcss = require('gulp-postcss');
 var sass = require('gulp-sass');
 var combine = require('stream-combiner2');
@@ -10,6 +11,7 @@ var wiredep = require('wiredep').stream;
 var autoprefixer = require('autoprefixer');
 var cssnano = require('cssnano');
 
+//STYLES
 gulp.task('styles', function() {
   // Processors for PostCSS
   var processors = [
@@ -20,7 +22,6 @@ gulp.task('styles', function() {
   // No need for pipe.
   var combined = combine.obj([
     gulp.src('./assets/styles/main.scss'),
-    wiredep(),
     sass().on('error', sass.logError),
     postcss(processors),
     rename('main.min.css'),
@@ -33,6 +34,23 @@ gulp.task('styles', function() {
   return combined;
 });
 
+// FONTS
+gulp.task('fonts', function() {
+  return gulp.src(['./bower_components/font-awesome/fonts/*'])
+    .pipe(gulp.dest('./dist/fonts/'));
+});
+
+// Inject Bower components
+gulp.task('wiredep', function () {
+  gulp.src('./assets/styles/*.scss')
+    .pipe(wiredep({
+      // directory: './bower_components',
+      // ignorePath: './bower_components/'
+    }))
+    .pipe(gulp.dest('./assets/styles'));
+});
+
+// WATCH
 // Rerun the task when a file changes
 gulp.task('watch', function() {
   browserSync.init({
@@ -43,6 +61,19 @@ gulp.task('watch', function() {
   });
   gulp.watch('./assets/styles/**/*.scss', ['styles']);
   browserSync.reload();
+  // Watch bower files
+  gulp.watch('bower.json', ['wiredep']);
 });
 
-gulp.task('default', ['watch', 'styles']);
+// CLEAN
+gulp.task('clean', function () {
+  return gulp.src(['dist/styles', 'dist/scripts', 'dist/images'], { read: false });
+});
+
+// BUILD
+gulp.task('build', ['styles', 'fonts']);
+
+// DEFAULT
+gulp.task('default', ['clean'], function () {
+    gulp.start(['watch', 'build']);
+});
