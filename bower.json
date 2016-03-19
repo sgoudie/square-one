@@ -1,9 +1,7 @@
 {
   "name": "square-one",
   "version": "0.0.1",
-  "authors": [
-
-  ],
+  "authors": [],
   "ignore": [
     "**/.*",
     "node_modules",
@@ -13,9 +11,9 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap": "~3.3.5",
     "fontawesome": "~4.3.0",
     "jquery-validation": "~1.14.0",
-    "fastclick": "~1.0.6"
+    "fastclick": "~1.0.6",
+    "bootstrap-sass": "^3.3.6"
   }
 }
