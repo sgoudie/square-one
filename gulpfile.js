@@ -34,6 +34,9 @@ gulp.task('styles', function() {
 // Rerun the task when a file changes
 gulp.task('watch', function() {
   browserSync.init({
+    // Adds php files to the watch
+    files: ['./**/*.php', './*.php'],
+    // Change this to your dev site address
     proxy: "http://sgoudie.dev"
   });
   gulp.watch('./assets/styles/**/*.scss', ['styles']);
