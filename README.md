@@ -8,7 +8,7 @@ A lightweight Wordpress boilerplate bringing together _s, Bootstrap, Bower, and 
 
 - Run a find and replace for Square One, square_one, and square-one to match your theme
 - `npm install && npm run build` in the command line will run npm, bower, and gulp build for the first time
-- After that just use `npm run build`
+- After that just use `gulp`, or `npm run build` if you want to install some new bower components
 
 ## Features
 
@@ -22,6 +22,20 @@ SASS for precompiling, running automatically. PostCSS is used for CssNano and Au
 
 #### BrowserSync
 Make sure that the Gulp file is updated with the address of your development server. (We recommend using Trellis & Bedrock).
+
+### Google Fonts
+In `functions.php` there is a little snippet for adding Google Fonts. Just uncomment it and add your font family and weights.
+
+```js
+function google_fonts() {
+  $query_args = array(
+    'family' => 'Oswald:700,400|Merriweather:400italic,400,300italic,700'
+  );
+  wp_register_style( 'google_fonts', add_query_arg( $query_args, "//fonts.googleapis.com/css" ), array(), null );
+  wp_enqueue_style( 'google_fonts' );
+}
+add_action('wp_enqueue_scripts', 'google_fonts');
+```
 
 ## To Do:
 - ES6 support

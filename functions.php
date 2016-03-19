@@ -119,7 +119,6 @@ add_action( 'widgets_init', 'square_one_widgets_init' );
 //     wp_register_style( 'google_fonts', add_query_arg( $query_args, "//fonts.googleapis.com/css" ), array(), null );
 //     wp_enqueue_style( 'google_fonts' );
 // }
-//
 // add_action('wp_enqueue_scripts', 'google_fonts');
 
 function square_one_scripts() {
