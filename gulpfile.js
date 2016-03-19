@@ -4,6 +4,7 @@ var postcss = require('gulp-postcss');
 var sass = require('gulp-sass');
 var combine = require('stream-combiner2');
 var browserSync = require('browser-sync').create();
+var wiredep = require('wiredep').stream;
 
 // Processors
 var autoprefixer = require('autoprefixer');
@@ -19,6 +20,7 @@ gulp.task('styles', function() {
   // No need for pipe.
   var combined = combine.obj([
     gulp.src('./assets/styles/main.scss'),
+    wiredep(),
     sass().on('error', sass.logError),
     postcss(processors),
     rename('main.min.css'),
