@@ -23,6 +23,7 @@ gulp.task('styles', function() {
     postcss(processors),
     rename('main.min.css'),
     gulp.dest('./dist/styles'),
+    browserSync.stream()
   ]);
   // any errors in the above streams will get caught
   // by this listener, instead of being thrown:
@@ -32,7 +33,11 @@ gulp.task('styles', function() {
 
 // Rerun the task when a file changes
 gulp.task('watch', function() {
+  browserSync.init({
+    proxy: "http://sgoudie.dev"
+  });
   gulp.watch('./assets/styles/**/*.scss', ['styles']);
+  browserSync.reload();
 });
 
 gulp.task('default', ['watch', 'styles']);
