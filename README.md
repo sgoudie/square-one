@@ -11,7 +11,7 @@ A lightweight Wordpress boilerplate bringing together _s, Bootstrap, Bower, and 
 - After that just use `gulp`, or `npm run build` if you want to install some new bower components
 
 ### Local Development
-We recommend using [https://github.com/Varying-Vagrant-Vagrants/VVV.git](VVV) to setup a Vagrant server for local Wordpress development. Once you have Vagrant and Virtual Box installed, here is the quick command to setup a new project:
+We recommend using [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV.git) to setup a Vagrant server for local Wordpress development. Once you have Vagrant and Virtual Box installed, here is the quick command to setup a new project:
 
 `git clone https://github.com/Varying-Vagrant-Vagrants/VVV.git project-name && cd project-name && rm -rf .git`
 
@@ -30,7 +30,7 @@ SASS for precompiling, running automatically. PostCSS is used for CssNano and Au
 #### BrowserSync
 Make sure that the Gulp file is updated with the address of your development server. (We recommend using Trellis & Bedrock).
 
-### Google Fonts
+#### Google Fonts
 In `functions.php` there is a little snippet for adding Google Fonts. Just uncomment it and add your font family and weights.
 
 ```js
