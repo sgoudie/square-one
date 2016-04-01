@@ -10,6 +10,13 @@ A lightweight Wordpress boilerplate bringing together _s, Bootstrap, Bower, and 
 - `npm install && npm run build` in the command line will run npm, bower, and gulp build for the first time
 - After that just use `gulp`, or `npm run build` if you want to install some new bower components
 
+### Local Development
+We recommend using [https://github.com/Varying-Vagrant-Vagrants/VVV.git](VVV) to setup a Vagrant server for local Wordpress development. Once you have Vagrant and Virtual Box installed, here is the quick command to setup a new project:
+
+`git clone https://github.com/Varying-Vagrant-Vagrants/VVV.git project-name && cd project-name && rm -rf .git`
+
+The just run `vagrant up`, wait a few minutes whilst Vagrant does it's thing, then clone Square One.
+
 ## Features
 
 Square One is built on top of _s, but adds a few extras:
