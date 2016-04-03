@@ -28,7 +28,7 @@ Managed via Bower, and automatically inserted with Wiredep. Override variables i
 SASS for precompiling, running automatically. PostCSS is used for CssNano and Autoprefixer; saving your fingers from vendor prefix fatigue.
 
 #### BrowserSync
-Make sure that the Gulp file is updated with the address of your development server. (We recommend using Trellis & Bedrock).
+If you're using VVV for you local setup, this will work out of the box on port 9000. If not, make sure that the Gulp file is updated with the address of your development server.
 
 #### Google Fonts
 In `functions.php` there is a little snippet for adding Google Fonts. Just uncomment it and add your font family and weights.
