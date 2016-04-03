@@ -56,8 +56,9 @@ gulp.task('watch', function() {
   browserSync.init({
     // Adds php files to the watch
     files: ['./**/*.php', './*.php'],
-    // Change this to your dev site address
-    proxy: "http://sgoudie.dev"
+    // Change this to your dev site address (default configured for VVV)
+    proxy: "http://local.wordpress.dev/",
+    port: 9000
   });
   gulp.watch('./assets/styles/**/*.scss', ['styles']);
   browserSync.reload();
