@@ -13,3 +13,27 @@
   @extend .btn;
   @extend .btn-default;
 }
+
+// For Jetpack contact form
+form.contact-form {
+
+}
+
+form.contact-form > div {
+  @extend .form-group;
+}
+
+form.contact-form > div input[type="text"],
+form.contact-form > div input[type="email"],
+form.contact-form > div textarea {
+  @extend .form-control;
+}
+
+form.contact-form > div label.grunion-field-label {
+
+}
+
+form.contact-form > p.contact-submit input[type="submit"].pushbutton-wide {
+  @extend .btn;
+  @extend .btn-primary;
+}
