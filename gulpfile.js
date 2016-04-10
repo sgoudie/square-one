@@ -1,17 +1,20 @@
 var gulp = require('gulp');
-var rename = require('gulp-rename');
-var clean = require('gulp-clean');
-var postcss = require('gulp-postcss');
-var sass = require('gulp-sass');
-var combine = require('stream-combiner2');
 var browserSync = require('browser-sync').create();
+var clean = require('gulp-clean');
+var combine = require('stream-combiner2');
+var concat = require('gulp-concat');
+var filter = require('gulp-filter');
+var mainbower = require('main-bower-files');
+var postcss = require('gulp-postcss');
+var rename = require('gulp-rename');
+var sass = require('gulp-sass');
+var uglify = require('gulp-uglify');
 var wiredep = require('wiredep').stream;
-
 // Processors
 var autoprefixer = require('autoprefixer');
 var cssnano = require('cssnano');
 
-//STYLES
+// STYLES
 gulp.task('styles', function() {
   // Processors for PostCSS
   var processors = [
@@ -26,6 +29,27 @@ gulp.task('styles', function() {
     postcss(processors),
     rename('main.min.css'),
     gulp.dest('./dist/styles'),
+    browserSync.stream()
+  ]);
+  // any errors in the above streams will get caught
+  // by this listener, instead of being thrown:
+  combined.on('error', console.error.bind(console));
+  return combined;
+});
+
+// SCRIPTS
+gulp.task('scripts', function() {
+
+	var jsFiles = ['./assets/scripts/*'];
+  // Combined streams for error handling
+  // No need for pipe.
+  var combined = combine.obj([
+    gulp.src(mainbower().concat(jsFiles)),
+		filter(['**/*.js']),
+		concat('main.js'),
+		uglify(),
+    rename('main.min.js'),
+		gulp.dest('./dist/scripts'),
     browserSync.stream()
   ]);
   // any errors in the above streams will get caught
@@ -61,6 +85,7 @@ gulp.task('watch', function() {
     port: 9000
   });
   gulp.watch('./assets/styles/**/*.scss', ['styles']);
+  gulp.watch('./assets/scripts/**/*.js', ['scripts']);
   browserSync.reload();
   // Watch bower files
   gulp.watch('bower.json', ['wiredep']);
@@ -72,7 +97,7 @@ gulp.task('clean', function () {
 });
 
 // BUILD
-gulp.task('build', ['styles', 'fonts']);
+gulp.task('build', ['styles', 'scripts', 'fonts']);
 
 // DEFAULT
 gulp.task('default', ['clean'], function () {
