@@ -198,3 +198,9 @@ function add_slug_body_class( $classes ) {
     return $classes;
 }
 add_filter( 'body_class', 'add_slug_body_class' );
+
+// Read more link text
+add_filter( 'the_content_more_link', 'modify_read_more_link' );
+  function modify_read_more_link() {
+  return '<a class="more-link" href="' . get_permalink() . '">Read More</a>';
+}
