@@ -25,7 +25,7 @@
 <?php get_template_part('template-parts/mobile-menu'); ?>
 
 <div id="page" class="hfeed site">
-	<a class="skip-link sr-only" href="#content"><?php esc_html_e( 'Skip to content', 'root-academi' ); ?></a>
+	<a class="skip-link sr-only" href="#content"><?php esc_html_e( 'Skip to content', 'square-one' ); ?></a>
 
 	<header id="masthead" class="SiteHeader" role="banner">
 		<div class="container">
