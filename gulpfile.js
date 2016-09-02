@@ -31,17 +31,7 @@ gulp.task('browser-sync', function() {
 gulp.task('styles', function() {
   // Processors for PostCSS
   var processors = [
-    // Browsers set to Bootstrap 3 requirements
-    autoprefixer({browsers: [
-      "Android 2.3",
-      "Android >= 4",
-      "Chrome >= 20",
-      "Firefox >= 24",
-      "Explorer >= 8",
-      "iOS >= 6",
-      "Opera >= 12",
-      "Safari >= 6"
-    ]}),
+    autoprefixer({browsers: 'last 2 versions'}),
     cssnano({autoprefixer: false})
   ];
   // Combined streams for error handling
@@ -104,7 +94,7 @@ gulp.task('clean', function () {
 gulp.task('build', ['styles', 'scripts' ]);
 
 // DEFAULT
-gulp.task('default', ['styles', 'scripts', 'browser-sync'], function () {
+gulp.task('default', ['styles', 'browser-sync'], function () {
 	gulp.watch('./assets/styles/**/*.scss', ['styles']);
-	gulp.watch('./assets/scripts/**/*.js', ['scripts', browserSync.reload]);
+	// gulp.watch('./assets/scripts/**/*.js', ['scripts', browserSync.reload]);
 });
