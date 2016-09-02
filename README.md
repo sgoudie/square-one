@@ -1,6 +1,6 @@
 # Square One
 
-A lightweight Wordpress boilerplate bringing together _s, Bootstrap, and Gulp.
+A lightweight Wordpress boilerplate bringing together _s, Bootstrap, npm and Gulp.
 
 ## Get Started
 
@@ -45,7 +45,4 @@ add_action('wp_enqueue_scripts', 'google_fonts');
 ```
 
 ## To Do:
-- ES6 support
-- Add js gulp tasks
 - Add image gulp tasks
-- Add config file for Gulp
