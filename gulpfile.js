@@ -32,6 +32,8 @@ const sass = require('gulp-sass');
 const babel = require('gulp-babel');
 const concat = require('gulp-concat');
 const uglify = require('gulp-uglify');
+// Images
+const imagemin = require('gulp-imagemin');
 // Utility
 const browserSync = require('browser-sync').create();
 const clean = require('gulp-clean');
@@ -56,7 +58,8 @@ gulp.task('browser-sync', () => {
     files: ['./**/*.php', './*.php'],
     // Change this to your dev site address (default configured for VVV)
     proxy: "http://local.wordpress.dev/",
-    port: 9000
+    port: 9000,
+		injectChanges: true
   });
 });
 
