@@ -1,6 +1,8 @@
 /* PROJECT CONFIG */
 const project = 'square-one'; // Name
 
+const buildIgnoreFiles = ['**/.sass-cache','**/.DS_Store'];
+
 const styleSRC = './assets/css/src/main.scss'; // Path to main .scss file
 const styleDestination = './assets/css'; // Path to place the compiled CSS file
 
@@ -11,7 +13,7 @@ const vendorsJsFiles = [
 	"./node_modules/jquery/dist/jquery.min.js",
 	"./node_modules/bootstrap-sass/assets/javascripts/bootstrap.js",
 	"./node_modules/fastclick/lib/fastclick.js",
-]
+];
 
 const jsCustomSRC = './assets/js/custom/*.js'; // Path to JS custom scripts folder
 const jsCustomDestination = './assets/js/'; // Path to place the compiled JS custom scripts file
@@ -20,6 +22,27 @@ const jsCustomFile = 'custom'; // Compiled JS custom file name
 const styleWatchFiles = './assets/css/src/**/*.scss'; // Path to all *.scss files inside css folder and inside them
 const customJSWatchFiles = './assets/js/custom/*.js'; // Path to all custom JS files
 
+const buildInclude 	= [
+	// include common file types
+	'**/*.php',
+	'**/*.html',
+	'**/*.css',
+	'**/*.js',
+	'**/*.svg',
+	'**/*.ttf',
+	'**/*.otf',
+	'**/*.eot',
+	'**/*.woff',
+	'**/*.woff2',
+	// include specific files and folders
+	'screenshot.png',
+	// exclude files and folders
+	'!node_modules/**/*',
+	'!style.css.map',
+	'!assets/js/custom/*',
+	'!assets/js/vendor/*',
+	'!assets/css/src/*'
+];
 
 // ---------------------------//
 
@@ -36,6 +59,7 @@ const uglify = require('gulp-uglify');
 const imagemin = require('gulp-imagemin');
 // Utility
 const browserSync = require('browser-sync').create();
+const cache = require('gulp-cache');
 const clean = require('gulp-clean');
 const combine = require('stream-combiner2');
 const filter = require('gulp-filter');
@@ -108,7 +132,6 @@ gulp.task('vendorsJs', () => {
 		uglify(),
 		gulp.dest(jsVendorsDestination),
 		notify({ message: 'TASK: "vendorsJs" ran', onLast: true }),
-    browserSync.stream()
   ]);
   // any errors in the above streams will get caught
   // by this listener, instead of being thrown:
@@ -146,8 +169,42 @@ gulp.task('fonts', () => {
     .pipe(gulp.dest('./assets/fonts/'));
 });
 
-// BUILD
-gulp.task('build', ['styles', 'scripts' ]);
+// Clean Up
+gulp.task('clear', () => {
+	cache.clearAll();
+});
+gulp.task('cleanup', () => {
+ return gulp.src(buildIgnoreFiles, { read: false })
+	 .pipe(ignore('node_modules/**')) //Example of a directory to ignore
+	 .pipe(rimraf({ force: true }))
+});
+gulp.task('cleanupFinal', function() {
+ return gulp.src(buildIgnoreFiles, { read: false })
+	 .pipe(ignore('node_modules/**')) //Example of a directory to ignore
+	 .pipe(rimraf({ force: true }))
+});
+
+
+
+// Moves files ready for build
+gulp.task('buildFiles', () => {
+	return gulp.src(buildInclude)
+		.pipe(gulp.dest(build))
+		.pipe(notify({ message: 'Copy from buildFiles complete', onLast: true }));
+});
+
+// Creating the ZIP
+ gulp.task('buildZip', () => {
+ 	return gulp.src(`${build}/**/`)
+ 		.pipe(zip(`${project}.zip`))
+ 		.pipe(gulp.dest('./'))
+ 		.pipe(notify({ message: 'Zip task complete', onLast: true }));
+ });
+
+ // Package Distributable Theme
+ gulp.task('build', (cb) => {
+ 	runSequence('styles', 'cleanup', 'vendorsJs', 'customJs', 'buildFiles', 'buildZip','cleanupFinal', cb);
+ });
 
 // DEFAULT
 gulp.task('default', ['fonts', 'styles', 'vendorsJs', 'customJs', 'browser-sync'], () => {
