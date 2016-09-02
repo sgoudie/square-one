@@ -103,11 +103,17 @@ gulp.task('customJs', function() {
   return combined;
 });
 
+// FONTS
+gulp.task('fonts', function() {
+  return gulp.src(['./node_modules/font-awesome/fonts/*'])
+    .pipe(gulp.dest('./assets/fonts/'));
+});
+
 // BUILD
 gulp.task('build', ['styles', 'scripts' ]);
 
 // DEFAULT
-gulp.task('default', ['styles', 'customJs', 'browser-sync'], function () {
+gulp.task('default', ['fonts', 'styles', 'customJs', 'browser-sync'], function () {
 	gulp.watch(styleWatchFiles, ['styles']);
  	gulp.watch(customJSWatchFiles, ['customJs']);
 });
