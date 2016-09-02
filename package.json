@@ -16,6 +16,7 @@
     "gulp-clean": "^0.3.2",
     "gulp-concat": "^2.6.0",
     "gulp-filter": "^4.0.0",
+    "gulp-ignore": "^2.0.1",
     "gulp-notify": "^2.2.0",
     "gulp-postcss": "^6.1.0",
     "gulp-print": "^2.0.1",

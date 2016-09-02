@@ -1,7 +1,7 @@
 /* PROJECT CONFIG */
 const project = 'square-one'; // Name
 
-const buildIgnoreFiles = ['**/.sass-cache','**/.DS_Store'];
+const buildCleanupFiles = ['**/.sass-cache','**/.DS_Store', './buildtheme'];
 
 const styleSRC = './assets/css/src/main.scss'; // Path to main .scss file
 const styleDestination = './assets/css'; // Path to place the compiled CSS file
@@ -22,6 +22,7 @@ const jsCustomFile = 'custom'; // Compiled JS custom file name
 const styleWatchFiles = './assets/css/src/**/*.scss'; // Path to all *.scss files inside css folder and inside them
 const customJSWatchFiles = './assets/js/custom/*.js'; // Path to all custom JS files
 
+const build = './buildtheme/';
 const buildInclude 	= [
 	// include common file types
 	'**/*.php',
@@ -41,7 +42,8 @@ const buildInclude 	= [
 	'!style.css.map',
 	'!assets/js/custom/*',
 	'!assets/js/vendor/*',
-	'!assets/css/src/*'
+	'!assets/css/src/*',
+	'!buildtheme',
 ];
 
 // ---------------------------//
@@ -63,10 +65,14 @@ const cache = require('gulp-cache');
 const clean = require('gulp-clean');
 const combine = require('stream-combiner2');
 const filter = require('gulp-filter');
+const ignore = require('gulp-ignore');
 const notify = require('gulp-notify');
 const print = require('gulp-print');
 const rename = require('gulp-rename');
+const rimraf = require('gulp-rimraf');
+const runSequence = require('gulp-run-sequence');
 const sourcemaps = require('gulp-sourcemaps');
+const zip = require('gulp-zip');
 // Processors
 const autoprefixer = require('autoprefixer');
 const cssnano = require('cssnano');
@@ -174,12 +180,12 @@ gulp.task('clear', () => {
 	cache.clearAll();
 });
 gulp.task('cleanup', () => {
- return gulp.src(buildIgnoreFiles, { read: false })
+ return gulp.src(buildCleanupFiles, { read: false })
 	 .pipe(ignore('node_modules/**')) //Example of a directory to ignore
 	 .pipe(rimraf({ force: true }))
 });
 gulp.task('cleanupFinal', function() {
- return gulp.src(buildIgnoreFiles, { read: false })
+ return gulp.src(buildCleanupFiles, { read: false })
 	 .pipe(ignore('node_modules/**')) //Example of a directory to ignore
 	 .pipe(rimraf({ force: true }))
 });
@@ -197,7 +203,7 @@ gulp.task('buildFiles', () => {
  gulp.task('buildZip', () => {
  	return gulp.src(`${build}/**/`)
  		.pipe(zip(`${project}.zip`))
- 		.pipe(gulp.dest('./'))
+ 		.pipe(gulp.dest('../'))
  		.pipe(notify({ message: 'Zip task complete', onLast: true }));
  });
 
