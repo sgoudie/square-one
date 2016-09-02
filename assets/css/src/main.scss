@@ -4,6 +4,9 @@
 @import "./node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 @import "./node_modules/font-awesome/scss/font-awesome";
 
+// Overrides some bootstrap styles
+@import "common/typeramp";
+
 @import "components/buttons";
 @import "components/comments";
 @import "components/forms";

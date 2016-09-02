@@ -1,0 +1,62 @@
+// Typeramp
+$breakpoints: (
+  small : $screen-sm-min,
+  medium: $screen-md-min,
+  large : $screen-lg-min
+);
+
+// null is the base font size;
+$p-font-sizes: (
+  null : ($font-size-base, $line-height-base),
+  small : $font-size-base,
+  medium : (18px, 1.4),
+  large: (20px, 1.6)
+);
+
+$h1-font-sizes: (
+  null : 28px,
+  small : 31px,
+  medium : 33px,
+  large: 36px
+);
+
+@mixin font-size($fs-map, $fs-breakpoints: $breakpoints) {
+  @each $fs-breakpoint, $fs-font-size in $fs-map {
+    @if $fs-breakpoint == null {
+      @include make-font-size($fs-font-size);
+    }
+    @else {
+      // If $fs-font-size is a key that exists in
+      // $fs-breakpoints, use the value
+      @if map-has-key($fs-breakpoints, $fs-breakpoint) {
+        $fs-breakpoint: map-get($fs-breakpoints, $fs-breakpoint);
+      }
+      @media screen and (min-width: $fs-breakpoint) {
+        @include make-font-size($fs-font-size);
+      }
+    }
+  }
+}
+
+// Utility function for mixin font-size
+@mixin make-font-size($fs-font-size) {
+  // If $fs-font-size is a list, include
+  // both font-size and line-height
+  @if type-of($fs-font-size) == "list" {
+    font-size: nth($fs-font-size, 1);
+    @if (length($fs-font-size) > 1) {
+      line-height: nth($fs-font-size, 2);
+    }
+  }
+  @else {
+    font-size: $fs-font-size;
+  }
+}
+
+h1 {
+  @include font-size($h1-font-sizes);
+}
+
+p, ul, ol {
+  @include font-size($p-font-sizes);
+}
