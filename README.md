@@ -1,14 +1,14 @@
 # Square One
 
-A lightweight Wordpress boilerplate bringing together _s, Bootstrap, Bower, and Gulp.
+A lightweight Wordpress boilerplate bringing together _s, Bootstrap, and Gulp.
 
 ## Get Started
 
 `$ git clone https://github.com/sgoudie/square-one theme-name && rm -rf theme-name/.git`
 
 - Run a find and replace for Square One, square_one, and square-one to match your theme
-- `npm install && npm run build` in the command line will run npm, bower, and gulp build for the first time
-- After that just use `gulp`, or `npm run build` if you want to install some new bower components
+- `npm install && npm run build` in the command line will run npm, and gulp build for the first time
+- After that just use `gulp`, or `npm run build`
 
 ### Local Development
 We recommend using [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV.git) to setup a Vagrant server for local Wordpress development. Once you have Vagrant and Virtual Box installed, here is the quick command to setup a new project:
@@ -22,7 +22,7 @@ The just run `vagrant up`, wait a few minutes whilst Vagrant does it's thing, th
 Square One is built on top of _s, but adds a few extras:
 
 #### Bootstrap (SASS) v3
-Managed via Bower, and automatically inserted with Wiredep. Override variables in _variables.scss
+Managed via npm. Override variables in _variables.scss
 
 #### Gulp SASS and PostCSS
 SASS for precompiling, running automatically. PostCSS is used for CssNano and Autoprefixer; saving your fingers from vendor prefix fatigue.

@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "description": "A WordPress starter template built on top of _s.",
   "scripts": {
-    "build": "bower install && gulp"
+    "build": "gulp"
   },
   "devDependencies": {
     "autoprefixer": "^6.3.3",
@@ -17,8 +17,11 @@
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.0.1",
     "gulp-uglify": "^1.5.3",
-    "main-bower-files": "^2.11.1",
     "stream-combiner2": "^1.1.1",
-    "wiredep": "^2.2.2"
+  },
+  "dependencies": {
+    "bootstrap-sass": "^3.3.7",
+    "fastclick": "^1.0.6",
+    "font-awesome": "^4.6.3"
   }
 }
