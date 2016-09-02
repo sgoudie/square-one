@@ -13,12 +13,14 @@
 
 	</div><!-- #content -->
 
-	<footer id="colophon" class="site-footer" role="contentinfo">
-		<div class="site-info">
-			<a href="<?php echo esc_url( __( 'https://wordpress.org/', 'square-one' ) ); ?>"><?php printf( esc_html__( 'Proudly powered by %s', 'square-one' ), 'WordPress' ); ?></a>
-			<span class="sep"> | </span>
-			<?php printf( esc_html__( 'Theme: %1$s by %2$s.', 'square-one' ), 'square-one', '<a href="http://samuelgoudie.co.uk" rel="designer">sgoudie</a>' ); ?>
-		</div><!-- .site-info -->
+	<footer id="colophon" class="SiteFooter" role="contentinfo">
+		<div class="container">
+			<div class="site-info">
+				<a href="<?php echo esc_url( __( 'https://wordpress.org/', 'square-one' ) ); ?>"><?php printf( esc_html__( 'Proudly powered by %s', 'square-one' ), 'WordPress' ); ?></a>
+				<span class="sep"> | </span>
+				<?php printf( esc_html__( 'Theme: %1$s by %2$s.', 'square-one' ), 'square-one', '<a href="http://samuelgoudie.co.uk" rel="designer">sgoudie</a>' ); ?>
+			</div><!-- .site-info -->
+		</div>
 	</footer><!-- #colophon -->
 </div><!-- #page -->
 
