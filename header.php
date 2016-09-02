@@ -21,26 +21,32 @@
 </head>
 
 <body <?php body_class(); ?>>
+
+<?php get_template_part('template-parts/mobile-menu'); ?>
+
 <div id="page" class="hfeed site">
-	<a class="skip-link sr-only" href="#content"><?php esc_html_e( 'Skip to content', 'square-one' ); ?></a>
+	<a class="skip-link sr-only" href="#content"><?php esc_html_e( 'Skip to content', 'root-academi' ); ?></a>
 
-	<header id="masthead" class="site-header" role="banner">
-		<div class="site-branding">
-			<?php if ( is_front_page() && is_home() ) : ?>
-				<h1 class="site-title">
-					<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
-						<?php bloginfo( 'name' ); ?> <i class="fa fa-hand-peace-o"></i>
-					</a>
-				</h1>
-			<?php else : ?>
-				<p class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></p>
-			<?php endif; ?>
-			<p class="site-description"><?php bloginfo( 'description' ); ?></p>
-		</div><!-- .site-branding -->
-
-		<nav id="site-navigation" class="main-navigation" role="navigation">
-			<?php wp_nav_menu( array( 'theme_location' => 'primary', 'menu_id' => 'primary-menu' ) ); ?>
-		</nav><!-- #site-navigation -->
+	<header id="masthead" class="SiteHeader" role="banner">
+		<div class="container">
+			<h1 class="SiteHeader-title">
+				<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
+					<?php bloginfo( 'name' ); ?>
+					<!-- If you have an image, go ahead  -->
+					<!-- <img src="<?php //bloginfo('template_directory'); ?>/assets/img/<image>" alt="<?php //bloginfo( 'name' ); ?>" /> -->
+				</a>
+			</h1>
+			<!-- Desktop menu -->
+			<nav id="site-navigation" class="SiteHeader-nav hidden-sm hidden-xs pull-right" role="navigation">
+				<?php wp_nav_menu( array( 'theme_location' => 'primary', 'menu_id' => 'primary-menu' ) ); ?>
+			</nav>
+			<!-- Mobile menu -->
+			<div class="SiteHeader-mobileMenu visible-sm visible-xs pull-right">
+        <button class="SiteHeader-mobileMenu-toggle" data-action="showMenu"><i class="fa fa-bars"></i> Menu</button>
+        <!-- <button class="hide-menu"><i class="fa fa-close"></i> Close</button> -->
+      </div>
+			<!-- #site-navigation -->
+		</div>
 	</header><!-- #masthead -->
 
 	<div id="content" class="site-content">

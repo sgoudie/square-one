@@ -9,9 +9,11 @@
 @import "components/forms";
 @import "components/wp-classes";
 
-@import "layouts/header";
+@import "components/MobileMenu";
+@import "components/SiteHeader";
+@import "components/SiteFooter";
+
 @import "layouts/sidebar";
-@import "layouts/footer";
 @import "layouts/pages";
 @import "layouts/posts";
 @import "layouts/tinymce";

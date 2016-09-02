@@ -1,0 +1,77 @@
+.Overlay {
+  position:fixed;
+  top:0px;
+  bottom:0px;
+  left:0px;
+  right:0px;
+  z-index:100;
+  background-color: $mobile-menu-overlay-color;
+  opacity: 0.8;
+  display:none;
+  transition: opacity 2s ease-out;
+  cursor: pointer;
+}
+
+.MobileMenu {
+  background-color: $brand-primary;
+  width: $mobile-menu-width;
+	min-height: 100%;
+	position: fixed;
+	right: -$mobile-menu-width;
+	z-index: 101;
+	overflow-y: scroll;
+  overflow-x: hidden;
+  transition: right 0.5s cubic-bezier(0.230, 1.000, 0.320, 1.000); /* easeOutQuint */
+  transform: translateZ(0);
+}
+
+.MobileMenu.is-expanded {
+	right: 0;
+}
+
+.MobileMenu-inner {
+  padding: 20px;
+}
+
+.MobileMenu ul {
+  list-style:none;
+  padding: 0;
+  margin: 0 0 20px 0;
+}
+
+.MobileMenu li {
+  padding: 10px;
+  font-weight: 700;
+  text-decoration:none;
+  font-size: 2rem;
+  font-family: $mobile-menu-font;
+}
+
+.MobileMenu li a {
+  color: #fff;
+  &:hover{
+    background-color: #fff;
+    color: $brand-primary;
+  }
+}
+
+.MobileMenu-close {
+  padding: 10px;
+  cursor: pointer;
+  font-family: $mobile-menu-font;
+}
+
+.MobileMenu-close span {
+  padding: 4px;
+  color: #fff;
+  .fa {
+    color: #fff;
+  }
+  &:hover{
+    background-color: #fff;
+    color: $brand-primary;
+    .fa {
+      color: $brand-primary;
+    }
+  }
+}
