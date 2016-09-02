@@ -15,12 +15,12 @@ const vendorsJsFiles = [
 	"./node_modules/fastclick/lib/fastclick.js",
 ];
 
-const jsCustomSRC = './assets/js/custom/*.js'; // Path to JS custom scripts folder
+const jsCustomSRC = './assets/js/src/*.js'; // Path to JS custom scripts folder
 const jsCustomDestination = './assets/js/'; // Path to place the compiled JS custom scripts file
-const jsCustomFile = 'custom'; // Compiled JS custom file name
+const jsCustomFile = 'main'; // Compiled JS custom file name
 
 const styleWatchFiles = './assets/css/src/**/*.scss'; // Path to all *.scss files inside css folder and inside them
-const customJSWatchFiles = './assets/js/custom/*.js'; // Path to all custom JS files
+const customJSWatchFiles = './assets/js/src/*.js'; // Path to all custom JS files
 
 const build = './buildtheme/';
 const buildInclude 	= [
@@ -40,7 +40,7 @@ const buildInclude 	= [
 	// exclude files and folders
 	'!node_modules/**/*',
 	'!style.css.map',
-	'!assets/js/custom/*',
+	'!assets/js/src/*',
 	'!assets/js/vendor/*',
 	'!assets/css/src/*',
 	'!buildtheme',
@@ -145,7 +145,7 @@ gulp.task('vendorsJs', () => {
   return combined;
 });
 
-gulp.task('customJs', () => {
+gulp.task('scriptsJs', () => {
   // Combined streams for error handling
   // No need for pipe.
   const combined = combine.obj([
@@ -160,7 +160,7 @@ gulp.task('customJs', () => {
 		}),
 		uglify(),
 		gulp.dest(jsCustomDestination),
-		notify({ message: 'TASK: "customJs" ran', onLast: true }),
+		notify({ message: 'TASK: "scriptsJs" ran', onLast: true }),
     browserSync.stream()
   ]);
   // any errors in the above streams will get caught
@@ -190,8 +190,6 @@ gulp.task('cleanupFinal', function() {
 	 .pipe(rimraf({ force: true }))
 });
 
-
-
 // Moves files ready for build
 gulp.task('buildFiles', () => {
 	return gulp.src(buildInclude)
@@ -209,11 +207,11 @@ gulp.task('buildFiles', () => {
 
  // Package Distributable Theme
  gulp.task('build', (cb) => {
- 	runSequence('styles', 'cleanup', 'vendorsJs', 'customJs', 'buildFiles', 'buildZip','cleanupFinal', cb);
+ 	runSequence('styles', 'cleanup', 'vendorsJs', 'scriptsJs', 'buildFiles', 'buildZip','cleanupFinal', cb);
  });
 
 // DEFAULT
-gulp.task('default', ['fonts', 'styles', 'vendorsJs', 'customJs', 'browser-sync'], () => {
+gulp.task('default', ['fonts', 'styles', 'vendorsJs', 'scriptsJs', 'browser-sync'], () => {
 	gulp.watch(styleWatchFiles, ['styles']);
- 	gulp.watch(customJSWatchFiles, ['customJs']);
+ 	gulp.watch(customJSWatchFiles, ['scriptsJs']);
 });
