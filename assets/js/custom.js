@@ -1,6 +1,8 @@
-jQuery(document).ready(function ($) {
-  //Adds in fastclick
-  $(function() {
+'use strict';
+
+// Initialise FastClick
+if ('addEventListener' in document) {
+  document.addEventListener('DOMContentLoaded', function () {
     FastClick.attach(document.body);
-  });
-});
+  }, false);
+}
