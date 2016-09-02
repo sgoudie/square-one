@@ -1,43 +1,43 @@
 /* PROJECT CONFIG */
-var project = 'square-one'; // Name
+const project = 'square-one'; // Name
 
-var styleSRC = './assets/css/src/main.scss'; // Path to main .scss file
-var styleDestination = './assets/css'; // Path to place the compiled CSS file
+const styleSRC = './assets/css/src/main.scss'; // Path to main .scss file
+const styleDestination = './assets/css'; // Path to place the compiled CSS file
 
-var jsCustomSRC = './assets/js/custom/*.js'; // Path to JS custom scripts folder
-var jsCustomDestination = './assets/js/'; // Path to place the compiled JS custom scripts file
-var jsCustomFile = 'custom'; // Compiled JS custom file name
+const jsCustomSRC = './assets/js/custom/*.js'; // Path to JS custom scripts folder
+const jsCustomDestination = './assets/js/'; // Path to place the compiled JS custom scripts file
+const jsCustomFile = 'custom'; // Compiled JS custom file name
 
-var styleWatchFiles = './assets/css/src/**/*.scss'; // Path to all *.scss files inside css folder and inside them
-var customJSWatchFiles = './assets/js/custom/*.js'; // Path to all custom JS files
+const styleWatchFiles = './assets/css/src/**/*.scss'; // Path to all *.scss files inside css folder and inside them
+const customJSWatchFiles = './assets/js/custom/*.js'; // Path to all custom JS files
 
 // ---------------------------//
 
 
-var gulp = require('gulp');
+const gulp = require('gulp');
 // CSS
-var postcss = require('gulp-postcss');
-var sass = require('gulp-sass');
+const postcss = require('gulp-postcss');
+const sass = require('gulp-sass');
 //JS
-var babel = require('gulp-babel');
-var concat = require('gulp-concat');
-var uglify = require('gulp-uglify');
+const babel = require('gulp-babel');
+const concat = require('gulp-concat');
+const uglify = require('gulp-uglify');
 // Utility
-var browserSync = require('browser-sync').create();
-var clean = require('gulp-clean');
-var combine = require('stream-combiner2');
-var filter = require('gulp-filter');
-var notify = require('gulp-notify');
-var print = require('gulp-print');
-var rename = require('gulp-rename');
-var sourcemaps = require('gulp-sourcemaps');
+const browserSync = require('browser-sync').create();
+const clean = require('gulp-clean');
+const combine = require('stream-combiner2');
+const filter = require('gulp-filter');
+const notify = require('gulp-notify');
+const print = require('gulp-print');
+const rename = require('gulp-rename');
+const sourcemaps = require('gulp-sourcemaps');
 // Processors
-var autoprefixer = require('autoprefixer');
-var cssnano = require('cssnano');
+const autoprefixer = require('autoprefixer');
+const cssnano = require('cssnano');
 
 // Browser-Sync
-gulp.task('browser-sync', function() {
-	var files = [
+gulp.task('browser-sync', () => {
+	const files = [
 		'**/*.php',
 		'**/*.{png,jpg,gif}'
 	];
@@ -51,15 +51,15 @@ gulp.task('browser-sync', function() {
 });
 
 // STYLES
-gulp.task('styles', function() {
+gulp.task('styles', () => {
   // Processors for PostCSS
-  var processors = [
+  const processors = [
     autoprefixer({browsers: 'last 2 versions'}),
     cssnano({autoprefixer: false})
   ];
   // Combined streams for error handling
   // No need for pipe.
-  var combined = combine.obj([
+  const combined = combine.obj([
     gulp.src(styleSRC),
     sourcemaps.init(),
     sass().on('error', sass.logError),
@@ -79,10 +79,10 @@ gulp.task('styles', function() {
 });
 
 // SCRIPTS
-gulp.task('customJs', function() {
+gulp.task('customJs', () => {
   // Combined streams for error handling
   // No need for pipe.
-  var combined = combine.obj([
+  const combined = combine.obj([
 		gulp.src(jsCustomSRC),
 		print(),
 		babel({ presets: ['es2015'] }),
@@ -104,7 +104,7 @@ gulp.task('customJs', function() {
 });
 
 // FONTS
-gulp.task('fonts', function() {
+gulp.task('fonts', () => {
   return gulp.src(['./node_modules/font-awesome/fonts/*'])
     .pipe(gulp.dest('./assets/fonts/'));
 });
@@ -113,7 +113,7 @@ gulp.task('fonts', function() {
 gulp.task('build', ['styles', 'scripts' ]);
 
 // DEFAULT
-gulp.task('default', ['fonts', 'styles', 'customJs', 'browser-sync'], function () {
+gulp.task('default', ['fonts', 'styles', 'customJs', 'browser-sync'], () => {
 	gulp.watch(styleWatchFiles, ['styles']);
  	gulp.watch(customJSWatchFiles, ['customJs']);
 });
