@@ -4,9 +4,9 @@ var project = 'square-one'; // Name
 var styleSRC = './assets/css/src/main.scss'; // Path to main .scss file
 var styleDestination = './assets/css'; // Path to place the compiled CSS file
 
-var jsVendorSRC = './assets/js/vendors/*.js'; // Path to JS vendors folder
-var jsVendorDestination = './assets/js/'; // Path to place the compiled JS vendors file
-var jsVendorFile = 'vendors'; // Compiled JS vendors file name
+var jsVendorsSRC = './assets/js/vendors/*.js'; // Path to JS vendors folder
+var jsVendorsDestination = './assets/js/'; // Path to place the compiled JS vendors file
+var jsVendorsFile = 'vendors'; // Compiled JS vendors file name
 
 var jsCustomSRC = './assets/js/custom/*.js'; // Path to JS custom scripts folder
 var jsCustomDestination = './assets/js/'; // Path to place the compiled JS custom scripts file
@@ -72,7 +72,7 @@ gulp.task('styles', function() {
 		rename('main.min.css'),
 		sourcemaps.write('./'),
     gulp.dest(styleDestination),
-    notify({ message: 'TASK: "styles" Completed!', onLast: true }),
+    notify({ message: 'TASK: "styles" ran', onLast: true }),
     browserSync.stream()
   ]);
   // any errors in the above streams will get caught
@@ -82,17 +82,42 @@ gulp.task('styles', function() {
 });
 
 // SCRIPTS
-gulp.task('scripts', function() {
-
-	var jsFiles = ['./assets/scripts/*'];
+gulp.task('vendorsJs', function() {
   // Combined streams for error handling
   // No need for pipe.
   var combined = combine.obj([
-		filter(['**/*.js']),
-		concat('main.js'),
+		gulp.src(jsVendorsSRC),
+		concat(jsVendorsFile + '.js'),
+		gulp.dest(jsVendorsDestination),
+		rename({
+			basename: jsVendorsFile,
+			suffix: '.min'
+		}),
 		uglify(),
-    rename('main.min.js'),
-		gulp.dest('./dist/scripts'),
+		gulp.dest(jsVendorsDestination),
+		notify({ message: 'TASK: "vendorsJs" ran', onLast: true }),
+    browserSync.stream()
+  ]);
+  // any errors in the above streams will get caught
+  // by this listener, instead of being thrown:
+  combined.on('error', console.error.bind(console));
+  return combined;
+});
+
+gulp.task('customJs', function() {
+  // Combined streams for error handling
+  // No need for pipe.
+  var combined = combine.obj([
+		gulp.src(jsCustomSRC),
+		concat(jsCustomFile + '.js'),
+		gulp.dest(jsCustomDestination),
+		rename({
+			basename: jsCustomFile,
+			suffix: '.min'
+		}),
+		uglify(),
+		gulp.dest(jsCustomDestination),
+		notify({ message: 'TASK: "customJs" ran', onLast: true }),
     browserSync.stream()
   ]);
   // any errors in the above streams will get caught
@@ -105,7 +130,8 @@ gulp.task('scripts', function() {
 gulp.task('build', ['styles', 'scripts' ]);
 
 // DEFAULT
-gulp.task('default', ['styles', 'browser-sync'], function () {
+gulp.task('default', ['styles', 'vendorsJs', 'customJs', 'browser-sync'], function () {
 	gulp.watch(styleWatchFiles, ['styles']);
-	// gulp.watch('./assets/scripts/**/*.js', ['scripts', browserSync.reload]);
+	gulp.watch(vendorJSWatchFiles, ['vendorsJs']);
+ 	gulp.watch(customJSWatchFiles, ['customJs']);
 });
