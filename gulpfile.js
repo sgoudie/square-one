@@ -12,11 +12,36 @@ var uglify = require('gulp-uglify');
 var autoprefixer = require('autoprefixer');
 var cssnano = require('cssnano');
 
+// Browser-Sync
+gulp.task('browser-sync', function() {
+	var files = [
+		'**/*.php',
+		'**/*.{png,jpg,gif}'
+	];
+	browserSync.init({
+    // Adds php files to the watch
+    files: ['./**/*.php', './*.php'],
+    // Change this to your dev site address (default configured for VVV)
+    proxy: "http://local.wordpress.dev/",
+    port: 9000
+  });
+});
+
 // STYLES
 gulp.task('styles', function() {
   // Processors for PostCSS
   var processors = [
-    autoprefixer({browsers: 'last 2 versions'}),
+    // Browsers set to Bootstrap 3 requirements
+    autoprefixer({browsers: [
+      "Android 2.3",
+      "Android >= 4",
+      "Chrome >= 20",
+      "Firefox >= 24",
+      "Explorer >= 8",
+      "iOS >= 6",
+      "Opera >= 12",
+      "Safari >= 6"
+    ]}),
     cssnano({autoprefixer: false})
   ];
   // Combined streams for error handling
@@ -76,9 +101,10 @@ gulp.task('clean', function () {
 });
 
 // BUILD
-gulp.task('build', ['styles', 'scripts']);
+gulp.task('build', ['styles', 'scripts' ]);
 
 // DEFAULT
-gulp.task('default', ['clean'], function () {
-    gulp.start(['watch', 'build']);
+gulp.task('default', ['styles', 'scripts', 'browser-sync'], function () {
+	gulp.watch('./assets/styles/**/*.scss', ['styles']);
+	gulp.watch('./assets/scripts/**/*.js', ['scripts', browserSync.reload]);
 });
