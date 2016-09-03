@@ -1,0 +1,9 @@
+.entry-content {
+  img, figure {
+    max-width: 100%;
+  }
+  img, figure, .video-container {
+    margin-top: $default-vertical-space;
+    margin-bottom: $default-vertical-space;
+  }
+}
