@@ -57,8 +57,6 @@ const sass = require('gulp-sass');
 const babel = require('gulp-babel');
 const concat = require('gulp-concat');
 const uglify = require('gulp-uglify');
-// Images
-const imagemin = require('gulp-imagemin');
 // Utility
 const browserSync = require('browser-sync').create();
 const cache = require('gulp-cache');
