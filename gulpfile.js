@@ -198,7 +198,7 @@ gulp.task('buildFiles', () => {
 // Creating the ZIP
  gulp.task('buildZip', () => {
  	return gulp.src(`${build}/**/`)
- 		.pipe(zip(`${project}.zip`))
+ 		.pipe(zip(`${project}-production.zip`))
  		.pipe(gulp.dest('../'))
  		.pipe(notify({ message: 'Zip task complete', onLast: true }));
  });
