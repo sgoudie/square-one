@@ -111,7 +111,7 @@ h4, h5 {
 }
 
 blockquote {
-  margin: $default-vertical-space*2 0;
+  margin: $default-padding*2 0;
   border-color: $brand-primary;
   p {
     @include font-size($blockquote-font-sizes);
@@ -126,7 +126,7 @@ p, ul, ol {
 
 .entry-content {
   p, ul, ol {
-    margin: $default-vertical-space 0;
+    margin: $default-padding 0;
   }
   blockquote {
     p {
